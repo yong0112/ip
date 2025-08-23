@@ -52,12 +52,36 @@ public class Noah {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 printLine();
-            } else {
-                tasks[count] = new Task(input);
+            } else if (input.toLowerCase().startsWith("todo")) {
+                String desc = input.substring(5).trim();
+                tasks[count] = new Todo(desc);
                 count++;
-
                 printLine();
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                printLine();
+            } else if (input.toLowerCase().startsWith("deadline")) {
+                String[] parts = input.substring(9).split(" /by");
+                tasks[count] = new Deadline(parts[0].trim(), parts[1].trim());
+                count++;
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                printLine();
+            } else if (input.toLowerCase().startsWith("event")) {
+                String[] parts = input.substring(6).split(" /from | /to");
+                tasks[count] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                count++;
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                printLine();
+            } else {
+                printLine();
+                System.out.println("Invalid command! Sorry~~~");
                 printLine();
             }
         }
