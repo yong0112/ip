@@ -106,6 +106,23 @@ public class Noah {
                     case UNKNOWN:
                         throw new NoahException("Sorry~ I don't know what that means.");
 
+                    case DELETE:
+                        if (parts.length < 2) {
+                            throw new NoahException("Please specify a task number to delete.");
+                        }
+                        int deleteIndex = Integer.parseInt(parts[1]) - 1;
+                        if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
+                            Task removed = tasks.remove(deleteIndex);
+                            printLine();
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("  " + removed);
+                            System.out.println("Now you have " + tasks.size() +" tasks in the list.");
+                            printLine();
+                        } else {
+                            throw new NoahException("Oops! I can't find the task");
+                        }
+                        break;
+
                     default:
                         throw new NoahException("Unexpected error.");
                 }
@@ -211,7 +228,7 @@ public class Noah {
     }
 
     enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, UNKNOWN;
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, DELETE, UNKNOWN;
 
         static Command from(String command) {
             try {
