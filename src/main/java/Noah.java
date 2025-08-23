@@ -13,76 +13,83 @@ public class Noah {
         printLine();
 
         while (true) {
-            String input = sc.nextLine().trim();
-            if (input.equalsIgnoreCase("bye")) {
-                printLine();
-                System.out.println("Bye. Hope to see you again soon!");
-                printLine();
-                break;
-            } else if (input.toLowerCase().startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < count) {
-                    tasks[index].markAsDone();
+            try {
+                String input = sc.nextLine().trim();
+                if (input.equalsIgnoreCase("bye")) {
                     printLine();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[index]);
+                    System.out.println("Bye. Hope to see you again soon!");
+                    printLine();
+                    break;
+                } else if (input.toLowerCase().startsWith("mark")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < count) {
+                        tasks[index].markAsDone();
+                        printLine();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  " + tasks[index]);
+                        printLine();
+                    } else {
+                        printLine();
+                        System.out.println("Oops! I can't find the task");
+                        printLine();
+                    }
+                } else if (input.toLowerCase().startsWith("unmark")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < count) {
+                        tasks[index].unmark();
+                        printLine();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("  " + tasks[index]);
+                        printLine();
+                    } else {
+                        printLine();
+                        System.out.println("Oops! I can't find the task");
+                        printLine();
+                    }
+                } else if (input.equals("list")) {
+                    printLine();
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < count; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                    printLine();
+                } else if (input.toLowerCase().startsWith("todo")) {
+                    String desc = input.substring(5).trim();
+                    if (desc.isEmpty()) {
+                        throw new NoahException("The description of a todo cannot be empty.");
+                    }
+                    tasks[count] = new Todo(desc);
+                    count++;
+                    printLine();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[count - 1]);
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                    printLine();
+                } else if (input.toLowerCase().startsWith("deadline")) {
+                    String[] parts = input.substring(9).split(" /by");
+                    tasks[count] = new Deadline(parts[0].trim(), parts[1].trim());
+                    count++;
+                    printLine();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[count - 1]);
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                    printLine();
+                } else if (input.toLowerCase().startsWith("event")) {
+                    String[] parts = input.substring(6).split(" /from | /to");
+                    tasks[count] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                    count++;
+                    printLine();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[count - 1]);
+                    System.out.println("Now you have " + count + " tasks in the list.");
                     printLine();
                 } else {
                     printLine();
-                    System.out.println("Oops! I can't find the task");
+                    System.out.println("Invalid command! Sorry~~~");
                     printLine();
                 }
-            } else if (input.toLowerCase().startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < count) {
-                    tasks[index].unmark();
-                    printLine();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[index]);
-                    printLine();
-                } else {
-                    printLine();
-                    System.out.println("Oops! I can't find the task");
-                    printLine();
-                }
-            } else if (input.equals("list")) {
-                printLine();
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-                printLine();
-            } else if (input.toLowerCase().startsWith("todo")) {
-                String desc = input.substring(5).trim();
-                tasks[count] = new Todo(desc);
-                count++;
-                printLine();
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + count + " tasks in the list.");
-                printLine();
-            } else if (input.toLowerCase().startsWith("deadline")) {
-                String[] parts = input.substring(9).split(" /by");
-                tasks[count] = new Deadline(parts[0].trim(), parts[1].trim());
-                count++;
-                printLine();
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + count + " tasks in the list.");
-                printLine();
-            } else if (input.toLowerCase().startsWith("event")) {
-                String[] parts = input.substring(6).split(" /from | /to");
-                tasks[count] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-                count++;
-                printLine();
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + count + " tasks in the list.");
-                printLine();
-            } else {
-                printLine();
-                System.out.println("Invalid command! Sorry~~~");
-                printLine();
+            } catch (NoahException e) {
+                printError(e.getMessage());
             }
         }
 
@@ -91,6 +98,12 @@ public class Noah {
 
     private static void printLine() {
         System.out.println("____________________________________");
+    }
+
+    private static void printError(String message) {
+        printLine();
+        System.out.println(message);
+        printLine();
     }
 
     static class Task {
@@ -159,6 +172,12 @@ public class Noah {
         @Override
         public String toString() {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        }
+    }
+
+    static class NoahException extends Exception {
+        public NoahException(String message) {
+            super(message);
         }
     }
 
