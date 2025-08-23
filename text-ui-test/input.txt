@@ -1,0 +1,10 @@
+hello
+todo cs2100 recording
+deadline cs2103t project /by Sunday
+deadline qf1100 assignment /by Monday
+event gym workout /from Sun 2pm /to 4pm
+list
+mark 1
+mark 3
+unmark 3
+bye

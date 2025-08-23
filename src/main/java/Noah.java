@@ -59,7 +59,7 @@ public class Noah {
                 printLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                System.out.println("Now you have " + count + " tasks in the list.");
                 printLine();
             } else if (input.toLowerCase().startsWith("deadline")) {
                 String[] parts = input.substring(9).split(" /by");
@@ -68,7 +68,7 @@ public class Noah {
                 printLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                System.out.println("Now you have " + count + " tasks in the list.");
                 printLine();
             } else if (input.toLowerCase().startsWith("event")) {
                 String[] parts = input.substring(6).split(" /from | /to");
@@ -77,7 +77,7 @@ public class Noah {
                 printLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks[count - 1]);
-                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+                System.out.println("Now you have " + count + " tasks in the list.");
                 printLine();
             } else {
                 printLine();
