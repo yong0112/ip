@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Noah {
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int count = 0;
+        List<Task> tasks = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         printLine();
@@ -30,11 +31,11 @@ public class Noah {
                             throw new NoahException("Please specify a task number to mark.");
                         }
                         int markIndex = Integer.parseInt(parts[1]) - 1;
-                        if (markIndex >= 0 && markIndex < count) {
-                            tasks[markIndex].markAsDone();
+                        if (markIndex >= 0 && markIndex < tasks.size()) {
+                            tasks.get(markIndex).markAsDone();
                             printLine();
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("  " + tasks[markIndex]);
+                            System.out.println("  " + tasks.get(markIndex));
                             printLine();
                         } else {
                             throw new NoahException("Oops! I can't find the task");
@@ -46,11 +47,11 @@ public class Noah {
                             throw new NoahException("Please specify a task number to unmark.");
                         }
                         int unmarkIndex = Integer.parseInt(parts[1]) - 1;
-                        if (unmarkIndex >= 0 && unmarkIndex < count) {
-                            tasks[unmarkIndex].unmark();
+                        if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
+                            tasks.get(unmarkIndex).unmark();
                             printLine();
                             System.out.println("OK, I've marked this task as not done yet:");
-                            System.out.println("  " + tasks[unmarkIndex]);
+                            System.out.println("  " + tasks.get(unmarkIndex));
                             printLine();
                         } else {
                             throw new NoahException("Oops! I can't find the task");
@@ -61,8 +62,8 @@ public class Noah {
                         if (parts.length < 2) {
                             printLine();
                             System.out.println("Here are the tasks in your list:");
-                            for (int i = 0; i < count; i++) {
-                                System.out.println((i + 1) + ". " + tasks[i]);
+                            for (int i = 0; i < tasks.size(); i++) {
+                                System.out.println((i + 1) + ". " + tasks.get(i));
                             }
                             printLine();
                         } else {
@@ -74,9 +75,8 @@ public class Noah {
                         if (parts.length < 2 || parts[1].trim().isEmpty()) {
                             throw new NoahException("The description of a todo cannot be empty.");
                         }
-                        tasks[count] = new Todo(parts[1].trim());
-                        count++;
-                        printAddTask(tasks[count - 1], count);
+                        tasks.add(new Todo(parts[1].trim()));
+                        printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
                     case DEADLINE:
@@ -87,9 +87,8 @@ public class Noah {
                             throw new NoahException("The deadline format must include /by");
                         }
                         String[] dl = parts[1].split(" /by", 2);
-                        tasks[count] = new Deadline(dl[0].trim(), dl[1].trim());
-                        count++;
-                        printAddTask(tasks[count - 1], count);
+                        tasks.add(new Deadline(dl[0].trim(), dl[1].trim()));
+                        printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
                     case EVENT:
@@ -100,9 +99,8 @@ public class Noah {
                             throw new NoahException("The event format must include /from and /to");
                         }
                         String[] ev = parts[1].split(" /from | /to");
-                        tasks[count] = new Event(ev[0].trim(), ev[1].trim(), ev[2].trim());
-                        count++;
-                        printAddTask(tasks[count - 1], count);
+                        tasks.add(new Event(ev[0].trim(), ev[1].trim(), ev[2].trim()));
+                        printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
                     case UNKNOWN:
@@ -223,5 +221,4 @@ public class Noah {
             }
         }
     }
-
 }
