@@ -1,9 +1,13 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Storage {
@@ -33,13 +37,45 @@ public class Storage {
         try {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
-                tasks.add(parseTask(line));
+                try {
+                    Task task = parseTask(line);
+                    tasks.add(task);
+                } catch (NoahException e) {
+                    System.out.println("Skipping corrupted line");
+                }
             }
         } catch (IOException e) {
             throw new NoahException(e.getMessage());
         }
 
         return tasks;
+    }
+
+    public void updateTask(String updatedContent, int lineNumber) throws IOException {
+        List<String> lines = Files.readAllLines(this.filePath);
+
+        if (lineNumber < 0 || lineNumber >= lines.size()) {
+            throw new IllegalArgumentException("Invalid line number");
+        }
+
+        lines.set(lineNumber, updatedContent);
+        Files.write(this.filePath, lines);
+    }
+
+    public void addTask(String newContent) throws IOException {
+        List<String> line = Collections.singletonList(newContent);
+        Files.write(this.filePath, line,  StandardOpenOption.APPEND,  StandardOpenOption.CREATE);
+    }
+
+    public void deleteTask(int lineNumber) throws IOException {
+        List<String> lines = Files.readAllLines(this.filePath);
+
+        if (lineNumber < 0 || lineNumber >= lines.size()) {
+            throw new IllegalArgumentException("Invalid line number");
+        }
+
+        lines.remove(lineNumber);
+        Files.write(this.filePath, lines);
     }
 
     private Task parseTask(String line) throws NoahException {

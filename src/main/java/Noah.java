@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,6 +7,14 @@ public class Noah {
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
+        Storage database = new Storage();
+
+        //Load tasks from file
+        try {
+            tasks = database.loadTasks();
+        } catch (NoahException e) {
+            printError(e.getMessage());
+        }
 
         printLine();
         System.out.println("Hello! I'm Noah");
@@ -31,7 +40,14 @@ public class Noah {
                         }
                         int markIndex = Integer.parseInt(parts[1]) - 1;
                         if (markIndex >= 0 && markIndex < tasks.size()) {
-                            tasks.get(markIndex).markAsDone();
+                            Task task = tasks.get(markIndex);
+                            task.markAsDone();
+                            try {
+                                database.updateTask(taskToFormatString(task), markIndex);
+                            } catch (IOException e) {
+                                printError(e.getMessage());
+                                return;
+                            }
                             printLine();
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println("  " + tasks.get(markIndex));
@@ -47,7 +63,14 @@ public class Noah {
                         }
                         int unmarkIndex = Integer.parseInt(parts[1]) - 1;
                         if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
-                            tasks.get(unmarkIndex).unmark();
+                            Task task = tasks.get(unmarkIndex);
+                            task.unmark();
+                            try {
+                                database.updateTask(taskToFormatString(task), unmarkIndex);
+                            } catch (IOException e) {
+                                printError(e.getMessage());
+                                return;
+                            }
                             printLine();
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println("  " + tasks.get(unmarkIndex));
@@ -74,7 +97,14 @@ public class Noah {
                         if (parts.length < 2 || parts[1].trim().isEmpty()) {
                             throw new NoahException("The description of a todo cannot be empty.");
                         }
-                        tasks.add(new Todo(parts[1].trim()));
+                        Task newTodo = new Todo(parts[1].trim());
+                        try {
+                            database.addTask(taskToFormatString(newTodo));
+                        } catch (IOException e) {
+                            printError(e.getMessage());
+                        }
+                        tasks.add(newTodo);
+
                         printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
@@ -86,7 +116,13 @@ public class Noah {
                             throw new NoahException("The deadline format must include /by");
                         }
                         String[] dl = parts[1].split(" /by", 2);
-                        tasks.add(new Deadline(dl[0].trim(), dl[1].trim()));
+                        Task newDl = new Deadline(dl[0].trim(), dl[1].trim());
+                        try {
+                            database.addTask(taskToFormatString(newDl));
+                        } catch (IOException e) {
+                            printError(e.getMessage());
+                        }
+                        tasks.add(newDl);
                         printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
@@ -98,7 +134,13 @@ public class Noah {
                             throw new NoahException("The event format must include /from and /to");
                         }
                         String[] ev = parts[1].split(" /from | /to");
-                        tasks.add(new Event(ev[0].trim(), ev[1].trim(), ev[2].trim()));
+                        Task newEv = new Event(ev[0].trim(), ev[1].trim(), ev[2].trim());
+                        try {
+                            database.addTask(taskToFormatString(newEv));
+                        } catch (IOException e) {
+                            printError(e.getMessage());
+                        }
+                        tasks.add(newEv);
                         printAddTask(tasks.get(tasks.size() - 1), tasks.size());
                         break;
 
@@ -111,6 +153,11 @@ public class Noah {
                         }
                         int deleteIndex = Integer.parseInt(parts[1]) - 1;
                         if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
+                            try {
+                                database.deleteTask(deleteIndex);
+                            } catch (IOException e) {
+                                printError(e.getMessage());
+                            }
                             Task removed = tasks.remove(deleteIndex);
                             printLine();
                             System.out.println("Noted. I've removed this task:");
@@ -149,6 +196,19 @@ public class Noah {
         printLine();
         System.out.println(message);
         printLine();
+    }
+
+    private static String taskToFormatString (Task task) {
+        String status = task.isDone ? "1": "0";
+        if (task instanceof Todo) {
+            return "T | " + status + " | " + task.description;
+        } else if (task instanceof Deadline) {
+            return "D | " + status + " | " + task.description;
+        } else if (task instanceof Event) {
+            return "E | " + status + " | " + task.description;
+        } else {
+            return "";
+        }
     }
 
     enum Command {
