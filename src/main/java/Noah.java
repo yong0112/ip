@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -150,81 +149,6 @@ public class Noah {
         printLine();
         System.out.println(message);
         printLine();
-    }
-
-    static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-
-        public void markAsDone() {
-            this.isDone = true;
-        }
-
-        public void unmark() {
-            this.isDone = false;
-        }
-
-        @Override
-        public String toString() {
-            return "[" + this.getStatusIcon() + "] " + this.description;
-        }
-    }
-
-    static class Todo extends Task {
-
-        public Todo(String description) {
-            super(description);
-        }
-
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
-    }
-
-    static class Deadline extends Task {
-        protected String by;
-
-        public Deadline(String description, String by) {
-            super(description);
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
-        }
-    }
-
-    static class Event extends Task {
-        protected String from;
-        protected String to;
-
-        public Event(String description, String to, String from) {
-            super(description);
-            this.from = from;
-            this.to = to;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-        }
-    }
-
-    static class NoahException extends Exception {
-        public NoahException(String message) {
-            super(message);
-        }
     }
 
     enum Command {

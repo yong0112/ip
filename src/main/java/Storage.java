@@ -13,8 +13,8 @@ public class Storage {
         this.filePath = Paths.get(".", "data", "duke.txt");
     }
 
-    public List<Noah.Task> loadTasks() throws Noah.NoahException {
-        List<Noah.Task> tasks = new ArrayList<>();
+    public List<Task> loadTasks() throws NoahException {
+        List<Task> tasks = new ArrayList<>();
         boolean directoryExists = Files.exists(this.filePath);
         boolean fileExists = Files.exists(this.filePath);
 
@@ -22,7 +22,7 @@ public class Storage {
             try {
                 Files.createDirectories(this.filePath.getParent());
             } catch (IOException e) {
-                throw new Noah.NoahException(e.getMessage());
+                throw new NoahException(e.getMessage());
             }
         }
 
@@ -36,31 +36,31 @@ public class Storage {
                 tasks.add(parseTask(line));
             }
         } catch (IOException e) {
-            throw new Noah.NoahException(e.getMessage());
+            throw new NoahException(e.getMessage());
         }
 
-
+        return tasks;
     }
 
-    private Noah.Task parseTask(String line) throws Noah.NoahException {
+    private Task parseTask(String line) throws NoahException {
        String[] parts = line.split(" \\| ");
        String type = parts[0].trim();
        boolean isDone = parts[1].trim().equals("1");
        String desc = parts[2].trim();
 
-        Noah.Task task;
+        Task task;
         switch (type) {
             case "T":
-                task = new Noah.Todo(desc);
+                task = new Todo(desc);
                 break;
             case "D":
-                task = new Noah.Deadline(desc, parts[3].trim());
+                task = new Deadline(desc, parts[3].trim());
                 break;
             case "E":
-                task = new Noah.Event(desc, parts[3].trim(), parts[4].trim());
+                task = new Event(desc, parts[3].trim(), parts[4].trim());
                 break;
             default:
-                throw new Noah.NoahException("Unknown task type");
+                throw new NoahException("Unknown task type");
         }
 
         if (isDone) {
@@ -68,6 +68,6 @@ public class Storage {
         }
 
         return task;
-        }
     }
 }
+
