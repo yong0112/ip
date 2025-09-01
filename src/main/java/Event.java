@@ -12,6 +12,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        String from = DateTime.dateToString(this.from);
+        String to = DateTime.dateToString(this.to);
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

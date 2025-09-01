@@ -1,12 +1,10 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,7 +12,7 @@ public class Storage {
     private final Path filePath;
 
     public Storage() {
-        this.filePath = Paths.get(".", "data", "duke.txt");
+        this.filePath = Paths.get(".", "data", "noah.txt");
     }
 
     public List<Task> loadTasks() throws NoahException {
@@ -45,7 +43,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new NoahException(e.getMessage());git
+            throw new NoahException(e.getMessage());
         }
 
         return tasks;
@@ -90,12 +88,13 @@ public class Storage {
                 task = new Todo(desc);
                 break;
             case "D":
-                task = new Deadline(desc, parts[3].trim());
+                LocalDateTime by = DateTime.parseDate(parts[3].trim());
+                task = new Deadline(desc, by);
                 break;
             case "E":
                 String[] parts2 = parts[3].trim().split("-");
-                String from = parts2[0].trim();
-                String to = parts2[1].trim();
+                LocalDateTime from = DateTime.parseDate(parts2[0].trim());
+                LocalDateTime to = DateTime.parseDate(parts2[1].trim());
                 task = new Event(desc, from, to);
                 break;
             default:

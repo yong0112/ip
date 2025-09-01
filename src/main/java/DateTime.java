@@ -19,14 +19,25 @@ public class DateTime {
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
             DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
             DateTimeFormatter.ofPattern("yyyy/M/d HHmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy hh:mma"),
+            DateTimeFormatter.ofPattern("yyyy-M-d hh:mma"),
+            DateTimeFormatter.ofPattern("yyyy/M/d hh:mma"),
             DateTimeFormatter.ofPattern("HHmm d-M-yyyy"),
             DateTimeFormatter.ofPattern("HHmm y/M/yyyy"),
             DateTimeFormatter.ofPattern("HHmm yyyy-M-d"),
             DateTimeFormatter.ofPattern("HHmm yyyy/M/d"),
+            DateTimeFormatter.ofPattern("hh:mma d-M-yyyy"),
+            DateTimeFormatter.ofPattern("hh:mma y/M/yyyy"),
+            DateTimeFormatter.ofPattern("hh:mma yyyy-M-d"),
+            DateTimeFormatter.ofPattern("hh:mma yyyy/M/d"),
             DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
             DateTimeFormatter.ofPattern("MMM d yyyy HHmm"),
             DateTimeFormatter.ofPattern("MMM/d/yyyy HH:mm"),
             DateTimeFormatter.ofPattern("MMM/d/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"),
+            DateTimeFormatter.ofPattern("MMM d yyyy hh:mma"),
+            DateTimeFormatter.ofPattern("MMM/d/yyyy hh:mma"),
+            DateTimeFormatter.ofPattern("MMM/d/yyyy hh:mma"),
             DateTimeFormatter.ofPattern("d-M-yyyy"),
             DateTimeFormatter.ofPattern("d/M/yyyy"),
             DateTimeFormatter.ofPattern("yyyy-M-d"),
@@ -35,7 +46,7 @@ public class DateTime {
             DateTimeFormatter.ofPattern("MMM/d/yyyy")
     ) ;
 
-    private static LocalDateTime parseDate(String date) {
+    public static LocalDateTime parseDate(String date) throws InvalidDateFormatException {
         for (DateTimeFormatter format: FORMATS) {
             try {
                 if (format.toString().contains("H")) {
@@ -45,6 +56,11 @@ public class DateTime {
                 }
             } catch (DateTimeParseException ignored) {}
         }
-        throw new IllegalArgumentException("Invalid date format: " + date);
+        throw new InvalidDateFormatException("Invalid date format: " + date);
+    }
+
+    public static String dateToString(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        return date.format(formatter);
     }
 }

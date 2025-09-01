@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -116,7 +117,11 @@ public class Noah {
                             throw new NoahException("The deadline format must include /by");
                         }
                         String[] dl = parts[1].split(" /by", 2);
-                        Task newDl = new Deadline(dl[0].trim(), dl[1].trim());
+                        if (dl.length < 2 || dl[0].trim().isEmpty()) {
+                            throw new NoahException("The description of a deadline cannot be empty.");
+                        }
+                        LocalDateTime deadline = DateTime.parseDate(dl[1].trim());
+                        Task newDl = new Deadline(dl[0].trim(), deadline);
                         try {
                             database.addTask(taskToFormatString(newDl));
                         } catch (IOException e) {
@@ -134,7 +139,12 @@ public class Noah {
                             throw new NoahException("The event format must include /from and /to");
                         }
                         String[] ev = parts[1].split(" /from | /to");
-                        Task newEv = new Event(ev[0].trim(), ev[1].trim(), ev[2].trim());
+                        if (ev.length < 2 || ev[0].trim().isEmpty()) {
+                            throw new NoahException("The description of a event cannot be empty.");
+                        }
+                        LocalDateTime from = DateTime.parseDate(ev[1].trim());
+                        LocalDateTime to = DateTime.parseDate(ev[2].trim());
+                        Task newEv = new Event(ev[0].trim(), from, to);
                         try {
                             database.addTask(taskToFormatString(newEv));
                         } catch (IOException e) {
@@ -204,10 +214,13 @@ public class Noah {
             return "T | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline dl = (Deadline) task;
-            return "D | " + status + " | " + task.description + " | " + dl.by;
+            String by = DateTime.dateToString(dl.by);
+            return "D | " + status + " | " + task.description + " | " + by;
         } else if (task instanceof Event) {
             Event ev = (Event) task;
-            return "E | " + status + " | " + task.description + " | " + ev.from + "-" + ev.to;
+            String from = DateTime.dateToString(ev.from);
+            String to = DateTime.dateToString(ev.to);
+            return "E | " + status + " | " + task.description + " | " + from + "-" + to;
         } else {
             return "";
         }
