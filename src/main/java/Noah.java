@@ -203,9 +203,11 @@ public class Noah {
         if (task instanceof Todo) {
             return "T | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {
-            return "D | " + status + " | " + task.description;
+            Deadline dl = (Deadline) task;
+            return "D | " + status + " | " + task.description + " | " + dl.by;
         } else if (task instanceof Event) {
-            return "E | " + status + " | " + task.description;
+            Event ev = (Event) task;
+            return "E | " + status + " | " + task.description + " | " + ev.from + "-" + ev.to;
         } else {
             return "";
         }

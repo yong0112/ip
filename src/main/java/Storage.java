@@ -19,7 +19,7 @@ public class Storage {
 
     public List<Task> loadTasks() throws NoahException {
         List<Task> tasks = new ArrayList<>();
-        boolean directoryExists = Files.exists(this.filePath);
+        boolean directoryExists = Files.exists(this.filePath.getParent());
         boolean fileExists = Files.exists(this.filePath);
 
         if (!directoryExists) {
@@ -45,7 +45,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new NoahException(e.getMessage());
+            throw new NoahException(e.getMessage());git
         }
 
         return tasks;
@@ -93,7 +93,10 @@ public class Storage {
                 task = new Deadline(desc, parts[3].trim());
                 break;
             case "E":
-                task = new Event(desc, parts[3].trim(), parts[4].trim());
+                String[] parts2 = parts[3].trim().split("-");
+                String from = parts2[0].trim();
+                String to = parts2[1].trim();
+                task = new Event(desc, from, to);
                 break;
             default:
                 throw new NoahException("Unknown task type");
