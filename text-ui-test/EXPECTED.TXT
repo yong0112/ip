@@ -1,9 +1,9 @@
 ____________________________________
-Hello! I'm Noah
+Hello! I'm noah.ui.Noah
 What can I do for you?
 ____________________________________
 ____________________________________
-Invalid command! Sorry~~~
+Invalid noah.command! Sorry~~~
 ____________________________________
 ____________________________________
 Got it. I've added this task:

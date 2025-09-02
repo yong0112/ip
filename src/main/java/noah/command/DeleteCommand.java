@@ -1,9 +1,17 @@
+package noah.command;
+
+import noah.task.TaskList;
+import noah.ui.UI;
+import noah.storage.Storage;
+import noah.exception.NoahException;
+import noah.task.Task;
+
 import java.io.IOException;
 
-public class MarkCommand extends Command {
+public class DeleteCommand extends Command {
     private final int index;
 
-    public MarkCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 
@@ -13,15 +21,13 @@ public class MarkCommand extends Command {
             throw new NoahException("Oops! I can't find the task");
         }
 
-        Task task = tasks.get(index);
-        task.markAsDone();
-
         try {
-            storage.updateTask(tasks.taskToFormatString(task), index);
+            storage.deleteTask(index);
         } catch (IOException e) {
             throw new NoahException(e.getMessage());
         }
 
-        ui.printMarkTask(task);
+        Task removed = tasks.deleteTask(index);
+        ui.printRemoveTask(removed, tasks.size());
     }
 }

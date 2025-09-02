@@ -1,3 +1,7 @@
+package noah.ui;
+
+import noah.task.Task;
+
 import java.util.Scanner;
 
 public class UI {
@@ -10,7 +14,7 @@ public class UI {
 
     public void welcome() {
         printLine();
-        System.out.println("Hello! I'm Noah");
+        System.out.println("Hello! I'm noah.ui.Noah");
         System.out.println("What can I do for you?");
         printLine();
     }

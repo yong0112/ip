@@ -1,13 +1,15 @@
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package noah.ui;
+
+import noah.command.Command;
+import noah.exception.NoahException;
+import noah.parser.Parser;
+import noah.storage.Storage;
+import noah.task.TaskList;
 
 public class Noah {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private final UI ui;
 
     public Noah() {
         ui = new UI();
@@ -28,7 +30,7 @@ public class Noah {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(this.tasks, this.ui, this.storage);
-                c.isExit();
+                isExit = c.isExit();
             } catch (NoahException e) {
                 ui.printError(e.getMessage());
             }

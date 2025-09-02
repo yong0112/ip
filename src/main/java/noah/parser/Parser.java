@@ -1,3 +1,10 @@
+package noah.parser;
+
+import noah.exception.NoahException;
+
+import noah.command.*;
+import noah.datetime.DateTime;
+
 import java.time.LocalDateTime;
 
 public class Parser {
@@ -83,7 +90,7 @@ public class Parser {
         try {
             return Integer.parseInt(numberStr) - 1;
         } catch (NumberFormatException e) {
-            throw new NoahException("OOPS! Task number must be an integer.");
+            throw new NoahException("OOPS! noah.task.Task number must be an integer.");
         }
     }
 }

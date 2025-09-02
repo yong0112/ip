@@ -1,9 +1,17 @@
+package noah.command;
+
+import noah.task.TaskList;
+import noah.ui.UI;
+import noah.storage.Storage;
+import noah.exception.NoahException;
+import noah.task.Task;
+
 import java.io.IOException;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final int index;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
@@ -22,6 +30,6 @@ public class UnmarkCommand extends Command {
             throw new NoahException(e.getMessage());
         }
 
-        ui.printUnmarkTask(task);
+        ui.printMarkTask(task);
     }
 }

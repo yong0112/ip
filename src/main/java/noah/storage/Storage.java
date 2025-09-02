@@ -1,3 +1,12 @@
+package noah.storage;
+
+import noah.datetime.DateTime;
+import noah.task.Deadline;
+import noah.task.Event;
+import noah.task.Todo;
+import noah.task.Task;
+import noah.exception.NoahException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -102,7 +111,7 @@ public class Storage {
         }
 
         if (isDone) {
-            task.isDone = true;
+            task.markAsDone();
         }
 
         return task;
