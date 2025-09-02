@@ -2,7 +2,7 @@ package noah.command;
 
 import noah.task.TaskList;
 import noah.ui.UI;
-import noah.storage.Storage;
+import noah.util.Storage;
 import noah.exception.NoahException;
 import noah.task.Task;
 

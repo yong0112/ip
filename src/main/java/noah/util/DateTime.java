@@ -1,4 +1,4 @@
-package noah.datetime;
+package noah.util;
 
 import noah.exception.InvalidDateFormatException;
 

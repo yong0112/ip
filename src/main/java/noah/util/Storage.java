@@ -1,6 +1,5 @@
-package noah.storage;
+package noah.util;
 
-import noah.datetime.DateTime;
 import noah.task.Deadline;
 import noah.task.Event;
 import noah.task.Todo;
@@ -22,6 +21,10 @@ public class Storage {
 
     public Storage() {
         this.filePath = Paths.get(".", "data", "noah.txt");
+    }
+
+    public Storage(String filePath) {
+        this.filePath = Paths.get(filePath);
     }
 
     public List<Task> loadTasks() throws NoahException {

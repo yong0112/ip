@@ -2,8 +2,8 @@ package noah.ui;
 
 import noah.command.Command;
 import noah.exception.NoahException;
-import noah.parser.Parser;
-import noah.storage.Storage;
+import noah.util.Parser;
+import noah.util.Storage;
 import noah.task.TaskList;
 
 public class Noah {
