@@ -6,7 +6,17 @@ import noah.command.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Parses user input strings into corresponding {@link Command} objects.
+ */
 public class Parser {
+    /**
+     * Parses a full command string entered by the user and returns the corresponding {@link Command} object.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A {@link Command} object corresponding to the parsed command.
+     * @throws NoahException If the command is unknown or the format is invalid.
+     */
     public static Command parse(String fullCommand) throws NoahException {
         String[] parts = fullCommand.trim().split(" ", 2);
         String command = parts[0].toUpperCase();
@@ -85,6 +95,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string representing a task number into an integer index.
+     *
+     * @param numberStr The string to convert into an integer index.
+     * @return The zero-based task index.
+     * @throws NoahException If the string is not a valid integer.
+     */
     public static int parseInt(String numberStr) throws NoahException {
         try {
             return Integer.parseInt(numberStr) - 1;
