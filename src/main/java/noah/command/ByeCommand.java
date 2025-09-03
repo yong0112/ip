@@ -4,6 +4,9 @@ import noah.task.TaskList;
 import noah.ui.UI;
 import noah.util.Storage;
 
+/**
+ * Command that exits the program
+ */
 public class ByeCommand extends Command {
 
     @Override

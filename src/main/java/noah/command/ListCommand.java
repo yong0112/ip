@@ -4,8 +4,19 @@ import noah.task.TaskList;
 import noah.ui.UI;
 import noah.util.Storage;
 
+/**
+ * Represents a command to list all tasks in the {@link TaskList}.
+ */
 public class ListCommand extends Command {
 
+    /**
+     * Executes this command by printing all tasks in the {@link TaskList}
+     * to the user interface.
+     *
+     * @param tasks The task list containing all current tasks.
+     * @param ui The user interface used to display the tasks.
+     * @param storage The storage system (not used in this command).
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
         ui.printLine();
