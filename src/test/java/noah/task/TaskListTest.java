@@ -1,5 +1,6 @@
 package noah.task;
 
+import noah.exception.NoahException;
 import noah.util.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void taskToFormatString_correctFormat() {
+    public void taskToFormatString_correctFormat() throws NoahException {
         assertEquals("T | 0 | read", tasks.taskToFormatString(task));
 
         LocalDateTime date = LocalDateTime.of(2025,9, 2, 15, 0);

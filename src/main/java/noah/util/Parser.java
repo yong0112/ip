@@ -90,6 +90,12 @@ public class Parser {
                 LocalDateTime to = DateTime.parseDate(ev[2].trim());
                 return new EventCommand(ev[0].trim(), from, to);
 
+            case "FIND":
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new NoahException("Please provide a keyword to search for.");
+                }
+                return new FindCommand(parts[1].trim());
+
             default:
                 throw new NoahException("Sorry~ I don't know what that means.");
         }

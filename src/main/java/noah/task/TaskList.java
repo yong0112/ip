@@ -24,6 +24,13 @@ public class TaskList {
         return this.tasks.remove(index);
     }
 
+    public List<Task> findMatchingTasks(String keyword) {
+        List<Task> matches = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+        return matches;
+    }
+
     public int size() {
         return this.tasks.size();
     }
