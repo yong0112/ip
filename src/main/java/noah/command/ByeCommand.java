@@ -10,8 +10,8 @@ import noah.util.Storage;
 public class ByeCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.goodBye();
+    public String execute(TaskList tasks, UI ui, Storage storage) {
+        return ui.goodBye();
     }
 
     @Override

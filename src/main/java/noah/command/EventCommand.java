@@ -40,9 +40,10 @@ public class EventCommand extends Command {
      * @param ui The user interface used to display messages.
      * @param storage The storage system used to persist the task.
      * @throws NoahException If there is an error writing to storage.
+     * @return A formatted string confirming the addition
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newEv = new Event(this.description, this.from, this.to);
 
         try {
@@ -52,6 +53,6 @@ public class EventCommand extends Command {
         }
 
         tasks.addTask(newEv);
-        ui.printAddTask(newEv, tasks.size());
+        return ui.printAddTask(newEv, tasks.size());
     }
 }

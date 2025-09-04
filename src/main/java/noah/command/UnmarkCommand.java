@@ -32,9 +32,10 @@ public class UnmarkCommand extends Command {
      * @param ui The user interface for displaying messages.
      * @param storage The storage system to persist changes.
      * @throws NoahException If the index is invalid or storage update fails.
+     * @return A formatted string confirming the unmark action.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         if (index < 0 || index >= tasks.size()) {
             throw new NoahException("Oops! I can't find the task");
         }
@@ -48,6 +49,6 @@ public class UnmarkCommand extends Command {
             throw new NoahException(e.getMessage());
         }
 
-        ui.printUnmarkTask(task);
+        return ui.printUnmarkTask(task);
     }
 }

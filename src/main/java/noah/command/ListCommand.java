@@ -16,14 +16,10 @@ public class ListCommand extends Command {
      * @param tasks The task list containing all current tasks.
      * @param ui The user interface used to display the tasks.
      * @param storage The storage system (not used in this command).
+     * @return A formatted string showing all tasks.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.printLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-        ui.printLine();
+    public String execute(TaskList tasks, UI ui, Storage storage) {
+        return ui.printAllTasks(tasks);
     }
 }

@@ -31,9 +31,10 @@ public class DeleteCommand extends Command {
      * @param ui The user interface for displaying output messages.
      * @param storage The storage handler used to save and delete tasks.
      * @throws NoahException If the index is invalid or if deletion from storage fails.
+     * @return A formatted string confirming the removal.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         if (index < 0 || index >= tasks.size()) {
             throw new NoahException("Oops! I can't find the task");
         }
@@ -45,6 +46,6 @@ public class DeleteCommand extends Command {
         }
 
         Task removed = tasks.deleteTask(index);
-        ui.printRemoveTask(removed, tasks.size());
+        return ui.printRemoveTask(removed, tasks.size());
     }
 }

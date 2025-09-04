@@ -37,9 +37,10 @@ public class DeadlineCommand extends Command {
      * @param ui The user interface used to display messages to the user.
      * @param storage The storage system used to save the task persistently.
      * @throws NoahException If there is an error writing to storage.
+     * @return A formatted string confirming the addition.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newDl = new Deadline(this.description, this.by);
         try {
             storage.addTask(tasks.taskToFormatString(newDl));
@@ -47,6 +48,6 @@ public class DeadlineCommand extends Command {
             throw new NoahException(e.getMessage());
         }
         tasks.addTask(newDl);
-        ui.printAddTask(newDl, tasks.size());
+        return ui.printAddTask(newDl, tasks.size());
     }
 }
