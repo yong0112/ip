@@ -16,6 +16,7 @@ public class ListCommand extends Command {
      * @param tasks The task list containing all current tasks.
      * @param ui The user interface used to display the tasks.
      * @param storage The storage system (not used in this command).
+     * @return A formatted string showing all tasks.
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) {

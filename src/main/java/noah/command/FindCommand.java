@@ -31,6 +31,7 @@ public class FindCommand extends Command {
      * @param ui      The user interface used to display the matched tasks.
      * @param storage The storage handler (not used in this command).
      * @throws NoahException If an error occurs during execution (not likely in this command).
+     * A formatted string showing all the matching tasks.
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {

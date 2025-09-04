@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
      * @param ui The user interface for displaying output messages.
      * @param storage The storage handler used to save and delete tasks.
      * @throws NoahException If the index is invalid or if deletion from storage fails.
+     * @return A formatted string confirming the removal.
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {

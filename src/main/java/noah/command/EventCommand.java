@@ -40,6 +40,7 @@ public class EventCommand extends Command {
      * @param ui The user interface used to display messages.
      * @param storage The storage system used to persist the task.
      * @throws NoahException If there is an error writing to storage.
+     * @return A formatted string confirming the addition
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {

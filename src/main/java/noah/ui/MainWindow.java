@@ -1,5 +1,6 @@
 package noah.ui;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -51,6 +55,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNoahDialog(response, noahImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> {
+                Stage stage = (Stage) userInput.getScene().getWindow();
+                stage.close();
+            });
+            delay.play();
+        }
     }
 }
 

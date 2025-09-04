@@ -32,6 +32,7 @@ public class UnmarkCommand extends Command {
      * @param ui The user interface for displaying messages.
      * @param storage The storage system to persist changes.
      * @throws NoahException If the index is invalid or storage update fails.
+     * @return A formatted string confirming the unmark action.
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {

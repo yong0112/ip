@@ -37,6 +37,7 @@ public class DeadlineCommand extends Command {
      * @param ui The user interface used to display messages to the user.
      * @param storage The storage system used to save the task persistently.
      * @throws NoahException If there is an error writing to storage.
+     * @return A formatted string confirming the addition.
      */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
