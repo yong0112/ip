@@ -40,4 +40,8 @@ public class Noah {
     public static void main(String[] args) {
         new Noah().run();
     }
+
+    public String getResponse(String input) {
+        return "Noah heard: " + input;
+    }
 }

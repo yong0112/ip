@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("noah.ui.Noah")
+    mainClass.set("noah.ui.Main")
 }
 
 shadowJar {
