@@ -23,11 +23,14 @@ public class MainWindow extends AnchorPane {
     private Noah noah;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image noahImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getNoahDialog(UI.welcome(), noahImage)
+        );
     }
 
     /** Injects the Duke instance */
@@ -45,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = noah.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getNoahDialog(response, noahImage)
         );
         userInput.clear();
     }

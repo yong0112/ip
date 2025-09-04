@@ -42,7 +42,7 @@ public class EventCommand extends Command {
      * @throws NoahException If there is an error writing to storage.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newEv = new Event(this.description, this.from, this.to);
 
         try {
@@ -52,6 +52,6 @@ public class EventCommand extends Command {
         }
 
         tasks.addTask(newEv);
-        ui.printAddTask(newEv, tasks.size());
+        return ui.printAddTask(newEv, tasks.size());
     }
 }

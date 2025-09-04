@@ -22,26 +22,31 @@ public class Noah {
         }
     }
 
-    public void run() {
-        ui.welcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (NoahException e) {
-                ui.printError(e.getMessage());
-            }
-        }
-    }
+//    public void run() {
+//        ui.welcome();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(this.tasks, this.ui, this.storage);
+//                isExit = c.isExit();
+//            } catch (NoahException e) {
+//                ui.printError(e.getMessage());
+//            }
+//        }
+//    }
 
     public static void main(String[] args) {
-        new Noah().run();
+//        new Noah().run();
     }
 
     public String getResponse(String input) {
-        return "Noah heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(this.tasks, this.ui, this.storage);
+        } catch (NoahException e) {
+            return ui.printError(e.getMessage());
+        }
     }
 }

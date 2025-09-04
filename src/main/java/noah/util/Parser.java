@@ -26,7 +26,10 @@ public class Parser {
                 return new ByeCommand();
 
             case "LIST":
-                return new ListCommand();
+                if (parts.length < 2) {
+                    return new ListCommand();
+                }
+                throw new NoahException("Try the command list only");
 
             case "MARK":
                 if (parts.length < 2) {

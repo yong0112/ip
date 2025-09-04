@@ -33,8 +33,8 @@ public class FindCommand extends Command {
      * @throws NoahException If an error occurs during execution (not likely in this command).
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         List<Task> matches = tasks.findMatchingTasks(this.keyword);
-        ui.printMatchedTask(matches);
+        return ui.printMatchedTask(matches);
     }
 }

@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
      * @throws NoahException If the index is invalid or if deletion from storage fails.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         if (index < 0 || index >= tasks.size()) {
             throw new NoahException("Oops! I can't find the task");
         }
@@ -45,6 +45,6 @@ public class DeleteCommand extends Command {
         }
 
         Task removed = tasks.deleteTask(index);
-        ui.printRemoveTask(removed, tasks.size());
+        return ui.printRemoveTask(removed, tasks.size());
     }
 }

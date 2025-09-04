@@ -34,7 +34,7 @@ public class TodoCommand extends Command {
      * @throws NoahException If there is an error writing to storage.
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newTd = new Todo(this.description);
 
         try {
@@ -45,6 +45,6 @@ public class TodoCommand extends Command {
 
         tasks.addTask(newTd);
 
-        ui.printAddTask(newTd, tasks.size());
+        return ui.printAddTask(newTd, tasks.size());
     }
 }

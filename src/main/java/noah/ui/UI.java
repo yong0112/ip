@@ -1,6 +1,7 @@
 package noah.ui;
 
 import noah.task.Task;
+import noah.task.TaskList;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,15 +10,15 @@ public class UI {
 
     private static final String DIVIDER = "____________________________________";
 
-    private String formatLine(String text) {
+    private static String formatLine(String text) {
         return DIVIDER + "\n" + text + "\n" + DIVIDER;
     }
     public void printLine() {
         System.out.println(DIVIDER);
     }
 
-    public String welcome() {
-        return formatLine("Hello! I'm noah.ui.Noah\nWhat can I do for you?");
+    public static String welcome() {
+        return formatLine("Hello! I'm Noah\nWhat can I do for you?");
     }
 
     public String printAddTask(Task task, int count) {
@@ -41,6 +42,14 @@ public class UI {
     public String printUnmarkTask(Task task) {
         return formatLine("OK, I've marked this task as not done yet:" +
                 "\n  " + task);
+    }
+
+    public String printAllTasks(TaskList tasks) {
+        String msg = "Here are the tasks in your list:";
+        for (int i = 0; i < tasks.size(); i++) {
+            msg += "\n" + (i + 1) + ". " + tasks.get(i);
+        }
+        return formatLine(msg);
     }
 
     public String printMatchedTask(List<Task> matches) {
