@@ -6,79 +6,61 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UI {
-    private Scanner sc = new Scanner(System.in);
+
     private static final String DIVIDER = "____________________________________";
 
+    private String formatLine(String text) {
+        return DIVIDER + "\n" + text + "\n" + DIVIDER;
+    }
     public void printLine() {
         System.out.println(DIVIDER);
     }
 
-    public void welcome() {
-        printLine();
-        System.out.println("Hello! I'm noah.ui.Noah");
-        System.out.println("What can I do for you?");
-        printLine();
+    public String welcome() {
+        return formatLine("Hello! I'm noah.ui.Noah\nWhat can I do for you?");
     }
 
-    public String readCommand() {
-        return sc.nextLine().trim();
+    public String printAddTask(Task task, int count) {
+
+        return formatLine("Got it. I've added this task:" +
+                "\n  " + task +
+                "\nNow you have " + count + " tasks in the list.");
     }
 
-    public void printAddTask(Task task, int count) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + count + " tasks in the list.");
-        printLine();
+    public String printRemoveTask(Task removed, int count) {
+        return formatLine("Noted. I've removed this task:" +
+                "\n  " + removed +
+                "\nNow you have " + count +" tasks in the list.");
     }
 
-    public void printRemoveTask(Task removed, int count) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + removed);
-        System.out.println("Now you have " + count +" tasks in the list.");
-        printLine();
+    public String printMarkTask(Task task) {
+        return formatLine("Nice! I've marked this task as done:" +
+                "\n  " + task);
     }
 
-    public void printMarkTask(Task task) {
-        printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        printLine();
+    public String printUnmarkTask(Task task) {
+        return formatLine("OK, I've marked this task as not done yet:" +
+                "\n  " + task);
     }
 
-    public void printUnmarkTask(Task task) {
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        printLine();
-    }
-
-    public void printMatchedTask(List<Task> matches) {
+    public String printMatchedTask(List<Task> matches) {
         if (matches.isEmpty()) {
-            printLine();
-            System.out.println("No matching tasks found.");
-            printLine();
+            return formatLine("No matching tasks found.");
         } else {
-            printLine();
-            System.out.println("Here are the matching tasks in your list:");
+            String msg = "Here are the matching tasks in your list:";
             for (int i = 0; i < matches.size(); i++) {
-                System.out.println((i + 1) + ". " + matches.get(i));
+                msg += "\n" + (i + 1) + ". " + matches.get(i);
             }
-            printLine();
+            return formatLine(msg);
         }
     }
 
-    public void printError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    public String printError(String message) {
+        return formatLine(message);
     }
 
-    public void goodBye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+    public String goodBye() {
+        return formatLine("Bye. Hope to see you again soon!");
     }
 
 }
