@@ -1,12 +1,12 @@
 package noah.command;
 
+import java.io.IOException;
+
+import noah.exception.NoahException;
+import noah.task.Task;
 import noah.task.TaskList;
 import noah.ui.UI;
 import noah.util.Storage;
-import noah.exception.NoahException;
-import noah.task.Task;
-
-import java.io.IOException;
 
 /**
  * Command that deletes tasks eventStartTime task list
@@ -23,16 +23,6 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    /**
-     * Executes this command by deleting a task eventStartTime {@link TaskList} at the specified index,
-     * updating the {@link Storage}, and notifying the user via the {@link UI}.
-     *
-     * @param tasks The task list containing all current tasks
-     * @param ui The user interface for displaying output messages.
-     * @param storage The storage handler used eventEndTime save and delete tasks.
-     * @throws NoahException If the index is invalid or if deletion eventStartTime storage fails.
-     * @return A formatted string confirming the removal.
-     */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         if (index < 0 || index >= tasks.size()) {

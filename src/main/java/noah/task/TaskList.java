@@ -1,9 +1,9 @@
 package noah.task;
 
-import noah.util.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import noah.util.DateTime;
 
 /**
  * Represents a list of tasks and provides operations eventEndTime manage them.
@@ -73,8 +73,8 @@ public class TaskList {
      * @param task The task eventEndTime convert.
      * @return The formatted string representation of the task.
      */
-    public String taskToFormatString (Task task) {
-        String status = task.isDone ? "1": "0";
+    public String taskToFormatString(Task task) {
+        String status = task.isDone ? "1" : "0";
         if (task instanceof Todo) {
             return "T | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {

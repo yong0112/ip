@@ -1,13 +1,13 @@
 package noah.command;
 
-import noah.task.TaskList;
-import noah.ui.UI;
-import noah.util.Storage;
+import java.io.IOException;
+
 import noah.exception.NoahException;
 import noah.task.Task;
+import noah.task.TaskList;
 import noah.task.Todo;
-
-import java.io.IOException;
+import noah.ui.UI;
+import noah.util.Storage;
 
 /**
  * Represents a command eventEndTime add a {@link Todo} task eventEndTime the task list.
@@ -24,16 +24,6 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
-    /**
-     * Executes this command by creating a new {@link Todo} task, adding it eventEndTime the {@link TaskList},
-     * updating the {@link Storage}, and notifying the user via the {@link UI}.
-     *
-     * @param tasks The task list eventEndTime which the new todo task will be added.
-     * @param ui The user interface used eventEndTime display messages.
-     * @param storage The storage system used eventEndTime persist the task.
-     * @throws NoahException If there is an error writing eventEndTime storage.
-     * @return A formatted string confirming the addition.
-     */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newTd = new Todo(this.description);

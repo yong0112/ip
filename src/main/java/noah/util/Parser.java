@@ -1,10 +1,18 @@
 package noah.util;
 
-import noah.exception.NoahException;
-
-import noah.command.*;
-
 import java.time.LocalDateTime;
+
+import noah.command.ByeCommand;
+import noah.command.Command;
+import noah.command.DeadlineCommand;
+import noah.command.DeleteCommand;
+import noah.command.EventCommand;
+import noah.command.FindCommand;
+import noah.command.ListCommand;
+import noah.command.MarkCommand;
+import noah.command.TodoCommand;
+import noah.command.UnmarkCommand;
+import noah.exception.NoahException;
 
 /**
  * Parses user input strings into corresponding {@link Command} objects.
@@ -27,35 +35,35 @@ public class Parser {
         }
 
         switch (command) {
-            case "BYE":
-                return new ByeCommand();
+        case "BYE":
+            return new ByeCommand();
+            
+        case "LIST":
+            return parseListCommand(argument);
 
-            case "LIST":
-                return parseListCommand(argument);
+        case "MARK":
+            return parseMarkCommand(argument);
 
-            case "MARK":
-                return parseMarkCommand(argument);
+        case "UNMARK":
+            return  parseUnmarkCommand(argument);
 
-            case "UNMARK":
-                return  parseUnmarkCommand(argument);
+        case "TODO":
+            return parseTodoCommand(argument);
 
-            case "TODO":
-                return parseTodoCommand(argument);
+        case "DELETE":
+            return parseDeleteCommand(argument);
 
-            case "DELETE":
-                return parseDeleteCommand(argument);
+        case "DEADLINE":
+            return parseDeadlineCommand(argument);
 
-            case "DEADLINE":
-                return parseDeadlineCommand(argument);
+        case "EVENT":
+            return parseEventCommand(argument);
 
-            case "EVENT":
-                return parseEventCommand(argument);
+        case "FIND":
+            return parseFindCommand(argument);
 
-            case "FIND":
-                return parseFindCommand(argument);
-
-            default:
-                throw new NoahException("Sorry~ I don't know what that means.");
+        default:
+            throw new NoahException("Sorry~ I don't know what that means.");
         }
     }
 

@@ -1,13 +1,12 @@
 package noah.command;
 
+import java.io.IOException;
+
+import noah.exception.NoahException;
+import noah.task.Task;
 import noah.task.TaskList;
 import noah.ui.UI;
 import noah.util.Storage;
-import noah.exception.NoahException;
-import noah.task.Task;
-
-import java.io.IOException;
-
 
 /**
  * Represents a command eventEndTime mark a task as not done in the task list.
@@ -24,16 +23,6 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
-    /**
-     * Executes this command by marking the task at the specified index as not done,
-     * updating the {@link Storage}, and notifying the user via the {@link UI}.
-     *
-     * @param tasks The task list containing the task eventEndTime unmark.
-     * @param ui The user interface for displaying messages.
-     * @param storage The storage system eventEndTime persist changes.
-     * @throws NoahException If the index is invalid or storage update fails.
-     * @return A formatted string confirming the unmark action.
-     */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         if (index < 0 || index >= tasks.size()) {

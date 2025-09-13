@@ -1,23 +1,20 @@
 package noah.util;
 
-import noah.task.Deadline;
-import noah.task.Event;
-import noah.task.Todo;
-import noah.task.Task;
-import noah.exception.NoahException;
-
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import noah.exception.NoahException;
+import noah.task.Deadline;
+import noah.task.Event;
+import noah.task.Task;
+import noah.task.Todo;
 
 /**
  * Handles reading, loading eventStartTime and updating eventEndTime a file that stores tasks.
@@ -111,7 +108,7 @@ public class Storage {
      */
     public void addTask(String newContent) throws IOException {
         List<String> line = Collections.singletonList(newContent);
-        Files.write(this.filePath, line,  StandardOpenOption.APPEND,  StandardOpenOption.CREATE);
+        Files.write(this.filePath, line, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
     }
 
     /**
@@ -146,28 +143,28 @@ public class Storage {
      * @throws NoahException If the task type is unknown or parsing fails.
      */
     private Task parseTask(String line) throws NoahException {
-       String[] parts = line.split(" \\| ");
-       String type = parts[0].trim();
-       boolean isDone = parts[1].trim().equals("1");
-       String desc = parts[2].trim();
+        String[] parts = line.split(" \\| ");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String desc = parts[2].trim();
 
         Task task;
         switch (type) {
-            case "T":
-                task = new Todo(desc);
-                break;
-            case "D":
-                LocalDateTime by = DateTime.parseDate(parts[3].trim());
-                task = new Deadline(desc, by);
-                break;
-            case "E":
-                String[] parts2 = parts[3].trim().split("-");
-                LocalDateTime from = DateTime.parseDate(parts2[0].trim());
-                LocalDateTime to = DateTime.parseDate(parts2[1].trim());
-                task = new Event(desc, from, to);
-                break;
-            default:
-                throw new NoahException("Unknown task type");
+        case "T":
+            task = new Todo(desc);
+            break;
+        case "D":
+            LocalDateTime by = DateTime.parseDate(parts[3].trim());
+            task = new Deadline(desc, by);
+            break;
+        case "E":
+            String[] parts2 = parts[3].trim().split("-");
+            LocalDateTime from = DateTime.parseDate(parts2[0].trim());
+            LocalDateTime to = DateTime.parseDate(parts2[1].trim());
+            task = new Event(desc, from, to);
+            break;
+        default:
+            throw new NoahException("Unknown task type");
         }
 
         if (isDone) {
