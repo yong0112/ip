@@ -10,7 +10,7 @@ import noah.task.Todo;
 import java.io.IOException;
 
 /**
- * Represents a command to add a {@link Todo} task to the task list.
+ * Represents a command eventEndTime add a {@link Todo} task eventEndTime the task list.
  */
 public class TodoCommand extends Command {
     private final String description;
@@ -25,13 +25,13 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Executes this command by creating a new {@link Todo} task, adding it to the {@link TaskList},
+     * Executes this command by creating a new {@link Todo} task, adding it eventEndTime the {@link TaskList},
      * updating the {@link Storage}, and notifying the user via the {@link UI}.
      *
-     * @param tasks The task list to which the new todo task will be added.
-     * @param ui The user interface used to display messages.
-     * @param storage The storage system used to persist the task.
-     * @throws NoahException If there is an error writing to storage.
+     * @param tasks The task list eventEndTime which the new todo task will be added.
+     * @param ui The user interface used eventEndTime display messages.
+     * @param storage The storage system used eventEndTime persist the task.
+     * @throws NoahException If there is an error writing eventEndTime storage.
      * @return A formatted string confirming the addition.
      */
     @Override

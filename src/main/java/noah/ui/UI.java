@@ -69,7 +69,7 @@ public class UI {
     }
 
     public String goodBye() {
-        return formatLine("Bye. Hope to see you again soon!");
+        return formatLine("Bye. Hope eventEndTime see you again soon!");
     }
 
 }

@@ -14,100 +14,137 @@ public class Parser {
      * Parses a full command string entered by the user and returns the corresponding {@link Command} object.
      *
      * @param fullCommand The full command string entered by the user.
-     * @return A {@link Command} object corresponding to the parsed command.
+     * @return A {@link Command} object corresponding eventEndTime the parsed command.
      * @throws NoahException If the command is unknown or the format is invalid.
      */
     public static Command parse(String fullCommand) throws NoahException {
         String[] parts = fullCommand.trim().split(" ", 2);
         String command = parts[0].toUpperCase();
+        String argument = "";
+
+        if (parts.length > 1) {
+            argument = parts[1].trim();
+        }
 
         switch (command) {
             case "BYE":
                 return new ByeCommand();
 
             case "LIST":
-                if (parts.length < 2) {
-                    return new ListCommand();
-                }
-                throw new NoahException("Try the command list only");
+                return parseListCommand(argument);
 
             case "MARK":
-                if (parts.length < 2) {
-                    throw new NoahException("Please specify a task number to mark.");
-                }
-                int markIndex = parseInt(parts[1]);
-                return new MarkCommand(markIndex);
+                return parseMarkCommand(argument);
 
             case "UNMARK":
-                if (parts.length < 2) {
-                    throw new NoahException("Please specify a task number to mark.");
-                }
-                int unmarkIndex = parseInt(parts[1]);
-                return new UnmarkCommand(unmarkIndex);
+                return  parseUnmarkCommand(argument);
 
             case "TODO":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new NoahException("The description of a todo cannot be empty.");
-                }
-                return new TodoCommand(parts[1].trim());
+                return parseTodoCommand(argument);
 
             case "DELETE":
-                if (parts.length < 2) {
-                    throw new NoahException("Please specify a task number to delete.");
-                }
-                int deleteIndex = parseInt(parts[1]) - 1;
-                return new DeleteCommand(deleteIndex);
+                return parseDeleteCommand(argument);
 
             case "DEADLINE":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new NoahException("The description of a deadline cannot be empty.");
-                }
-                if (!parts[1].contains("/by")) {
-                    throw new NoahException("The deadline format must include /by");
-                }
-                String[] dl = parts[1].split(" /by", 2);
-                if (dl.length < 2 || dl[0].trim().isEmpty()) {
-                    throw new NoahException("The description of a deadline cannot be empty.");
-                }
-                if (dl[1].trim().isEmpty()) {
-                    throw new NoahException("Please specify a valid deadline");
-                }
-                LocalDateTime by = DateTime.parseDate(dl[1].trim());
-                return new DeadlineCommand(dl[0].trim(), by);
+                return parseDeadlineCommand(argument);
 
             case "EVENT":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new NoahException("The description of a event cannot be empty.");
-                }
-                if (!parts[1].contains("/from") || !parts[1].contains("/to")) {
-                    throw new NoahException("The event format must include /from and /to");
-                }
-                String[] ev = parts[1].split(" /from | /to");
-                if (ev.length < 2 || ev[0].trim().isEmpty()) {
-                    throw new NoahException("The description of a event cannot be empty.");
-                }
-                if (ev[1].trim().isEmpty() || ev[2].trim().isEmpty()) {
-                    throw new NoahException("Please specify valid /from and /to dates.");
-                }
-                LocalDateTime from = DateTime.parseDate(ev[1].trim());
-                LocalDateTime to = DateTime.parseDate(ev[2].trim());
-                return new EventCommand(ev[0].trim(), from, to);
+                return parseEventCommand(argument);
 
             case "FIND":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new NoahException("Please provide a keyword to search for.");
-                }
-                return new FindCommand(parts[1].trim());
+                return parseFindCommand(argument);
 
             default:
                 throw new NoahException("Sorry~ I don't know what that means.");
         }
     }
 
+    private static Command parseListCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            return new ListCommand();
+        }
+        throw new NoahException("Try the command list only");
+    }
+
+    private static Command parseMarkCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("Please specify a task number eventEndTime mark.");
+        }
+        int markIndex = parseInt(argument);
+        return new MarkCommand(markIndex);
+    }
+
+    private static Command parseUnmarkCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("Please specify a task number eventEndTime unmark.");
+        }
+        int unmarkIndex = parseInt(argument);
+        return new UnmarkCommand(unmarkIndex);
+    }
+
+    private static Command parseDeleteCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("Please specify a task number eventEndTime delete.");
+        }
+        int deleteIndex = parseInt(argument) - 1;
+        return new DeleteCommand(deleteIndex);
+    }
+
+    private static Command parseTodoCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("The description of a todo cannot be empty.");
+        }
+        return new TodoCommand(argument);
+    }
+
+    private static Command parseDeadlineCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("The description of a deadline cannot be empty.");
+        }
+        if (!argument.contains("/by")) {
+            throw new NoahException("The deadline format must include /by");
+        }
+        String[] dl = argument.split(" /by", 2);
+        if (dl.length < 2 || dl[0].trim().isEmpty()) {
+            throw new NoahException("The description of a deadline cannot be empty.");
+        }
+        if (dl[1].trim().isEmpty()) {
+            throw new NoahException("Please specify a valid deadline");
+        }
+        LocalDateTime by = DateTime.parseDate(dl[1].trim());
+        return new DeadlineCommand(dl[0].trim(), by);
+    }
+
+    private static Command parseEventCommand(String argument) throws NoahException {
+        if (argument.trim().isEmpty()) {
+            throw new NoahException("The description of a event cannot be empty.");
+        }
+        if (!argument.contains("/eventStartTime") || !argument.contains("/eventEndTime")) {
+            throw new NoahException("The event format must include /eventStartTime and /eventEndTime");
+        }
+        String[] ev = argument.split(" /from | /to");
+        if (ev.length < 2 || ev[0].trim().isEmpty()) {
+            throw new NoahException("The description of a event cannot be empty.");
+        }
+        if (ev[1].trim().isEmpty() || ev[2].trim().isEmpty()) {
+            throw new NoahException("Please specify valid /eventStartTime and /eventEndTime dates.");
+        }
+        LocalDateTime from = DateTime.parseDate(ev[1].trim());
+        LocalDateTime to = DateTime.parseDate(ev[2].trim());
+        return new EventCommand(ev[0].trim(), from, to);
+    }
+
+    private static Command parseFindCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("Please provide a keyword eventEndTime search for.");
+        }
+        return new FindCommand(argument);
+    }
+
     /**
      * Parses a string representing a task number into an integer index.
      *
-     * @param numberStr The string to convert into an integer index.
+     * @param numberStr The string eventEndTime convert into an integer index.
      * @return The zero-based task index.
      * @throws NoahException If the string is not a valid integer.
      */

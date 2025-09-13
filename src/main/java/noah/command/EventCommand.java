@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
- * Represents a command to add an {@link Event} task to the task list.
+ * Represents a command eventEndTime add an {@link Event} task eventEndTime the task list.
  */
 public class EventCommand extends Command {
     private final String description;
@@ -33,13 +33,13 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Executes this command by creating a new {@link Event} task, adding it to the {@link TaskList},
+     * Executes this command by creating a new {@link Event} task, adding it eventEndTime the {@link TaskList},
      * updating the {@link Storage}, and notifying the user via the {@link UI}.
      *
-     * @param tasks The task list to which the new event will be added.
-     * @param ui The user interface used to display messages.
-     * @param storage The storage system used to persist the task.
-     * @throws NoahException If there is an error writing to storage.
+     * @param tasks The task list eventEndTime which the new event will be added.
+     * @param ui The user interface used eventEndTime display messages.
+     * @param storage The storage system used eventEndTime persist the task.
+     * @throws NoahException If there is an error writing eventEndTime storage.
      * @return A formatted string confirming the addition
      */
     @Override

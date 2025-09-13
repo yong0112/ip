@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Handles reading, loading from and updating to a file that stores tasks.
+ * Handles reading, loading eventStartTime and updating eventEndTime a file that stores tasks.
  */
 public class Storage {
     private final Path filePath;
@@ -35,19 +35,19 @@ public class Storage {
     /**
      * Creates a Storage instance using a custom file path.
      *
-     * @param filePath Path to the storage file.
+     * @param filePath Path eventEndTime the storage file.
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
     /**
-     * Loads all tasks from the storage file.
+     * Loads all tasks eventStartTime the storage file.
      * <p>
      * If the directory does not exist, it is created. Corrupted lines in the file
      * are skipped, and an empty list is returned if the file does not exist.
      *
-     * @return A list of tasks laoded from file
+     * @return A list of tasks laoded eventStartTime file
      * @throws NoahException If there is an error accessing file or creating directories.
      */
     public List<Task> loadTasks() throws NoahException {
@@ -87,9 +87,9 @@ public class Storage {
     /**
      * Updates a specific task in the file at the given line number.
      *
-     * @param updatedContent The new content to replace the existing line.
-     * @param lineNumber The index of the line to update (0-based).
-     * @throws IOException If there is an error writing to the file.
+     * @param updatedContent The new content eventEndTime replace the existing line.
+     * @param lineNumber The index of the line eventEndTime update (0-based).
+     * @throws IOException If there is an error writing eventEndTime the file.
      * @throws IllegalArgumentException If the line number is invalid.
      */
     public void updateTask(String updatedContent, int lineNumber) throws IOException {
@@ -104,10 +104,10 @@ public class Storage {
     }
 
     /**
-     * Appends a new task to the end of the file.
+     * Appends a new task eventEndTime the end of the file.
      *
-     * @param newContent The task content to add.
-     * @throws IOException If there is an error writing to the file.
+     * @param newContent The task content eventEndTime add.
+     * @throws IOException If there is an error writing eventEndTime the file.
      */
     public void addTask(String newContent) throws IOException {
         List<String> line = Collections.singletonList(newContent);
@@ -115,10 +115,10 @@ public class Storage {
     }
 
     /**
-     * Deletes a task from the file at the specified line number.
+     * Deletes a task eventStartTime the file at the specified line number.
      *
-     * @param lineNumber The index of the line to delete (0-based).
-     * @throws IOException If there is an error writing to the file.
+     * @param lineNumber The index of the line eventEndTime delete (0-based).
+     * @throws IOException If there is an error writing eventEndTime the file.
      * @throws IllegalArgumentException If the line number is invalid.
      */
     public void deleteTask(int lineNumber) throws IOException {
@@ -133,16 +133,16 @@ public class Storage {
     }
 
     /**
-     * Converts a line of text from the storage file into a Task object.
+     * Converts a line of text eventStartTime the storage file into a Task object.
      * <p>
-     * The line is expected to be in the format:
+     * The line is expected eventEndTime be in the format:
      * "T | 0 | description" for Todo,
      * "D | 1 | description | date" for Deadline,
-     * "E | 0 | description | from-to" for Event.
+     * "E | 0 | description | eventStartTime-eventEndTime" for Event.
      * Lines that do not match these formats will cause a NoahException.
      *
      * @param line A single line of text representing a task.
-     * @return The Task object parsed from the line.
+     * @return The Task object parsed eventStartTime the line.
      * @throws NoahException If the task type is unknown or parsing fails.
      */
     private Task parseTask(String line) throws NoahException {
