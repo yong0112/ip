@@ -87,12 +87,20 @@ public class UI {
         }
     }
 
+    /**
+     * Returns a string message with the details of task edited.
+     */
+    public String printEditedTask(Task task) {
+        return formatLine("Nice! I've updated this task:"
+                + "\n  " + task);
+    }
+
     public String printError(String message) {
         return formatLine(message);
     }
 
     public String goodBye() {
-        return formatLine("Bye. Hope eventEndTime see you again soon!");
+        return formatLine("Bye. Hope to see you again soon!");
     }
 
 }
