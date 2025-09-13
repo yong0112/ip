@@ -94,7 +94,7 @@ public class Parser {
         if (argument.isEmpty()) {
             throw new NoahException("Please specify a task number eventEndTime delete.");
         }
-        int deleteIndex = parseInt(argument) - 1;
+        int deleteIndex = parseInt(argument);
         return new DeleteCommand(deleteIndex);
     }
 

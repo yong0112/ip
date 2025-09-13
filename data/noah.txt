@@ -1,4 +1,2 @@
 T | 0 | hdhdhd
-E | 0 | shhshs | Jun 19 2025 0000-Jun 20 2025 0000
 T | 1 | dhdhdhdh
-T | 1 | cs2103t tutorial
