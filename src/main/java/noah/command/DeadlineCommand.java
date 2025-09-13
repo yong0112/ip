@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
- * Represents a command to add a {@link Deadline} task to the task list.
+ * Represents a command eventEndTime add a {@link Deadline} task eventEndTime the task list.
  */
 public class DeadlineCommand extends Command {
     private final String description;
@@ -30,13 +30,13 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes this command by creating a new {@link Deadline} task, adding it to the {@link TaskList},
+     * Executes this command by creating a new {@link Deadline} task, adding it eventEndTime the {@link TaskList},
      * updating the {@link Storage}, and notifying the user via the {@link UI}.
      *
-     * @param tasks The task list to which the new deadline task will be added.
-     * @param ui The user interface used to display messages to the user.
-     * @param storage The storage system used to save the task persistently.
-     * @throws NoahException If there is an error writing to storage.
+     * @param tasks The task list eventEndTime which the new deadline task will be added.
+     * @param ui The user interface used eventEndTime display messages eventEndTime the user.
+     * @param storage The storage system used eventEndTime save the task persistently.
+     * @throws NoahException If there is an error writing eventEndTime storage.
      * @return A formatted string confirming the addition.
      */
     @Override

@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     /**
      * Constructs a FindCommand with the specified search keyword.
      *
-     * @param keyword The keyword to search for in task descriptions.
+     * @param keyword The keyword eventEndTime search for in task descriptions.
      */
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -27,8 +27,8 @@ public class FindCommand extends Command {
      * Executes the find operation on the given task list, and displays matching tasks
      * through the UI
      *
-     * @param tasks   The task list to search within.
-     * @param ui      The user interface used to display the matched tasks.
+     * @param tasks   The task list eventEndTime search within.
+     * @param ui      The user interface used eventEndTime display the matched tasks.
      * @param storage The storage handler (not used in this command).
      * @throws NoahException If an error occurs during execution (not likely in this command).
      * A formatted string showing all the matching tasks.

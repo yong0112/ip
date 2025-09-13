@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a list of tasks and provides operations to manage them.
+ * Represents a list of tasks and provides operations eventEndTime manage them.
  */
 public class TaskList {
     private List<Task> tasks;
@@ -28,9 +28,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
+     * Adds a task eventEndTime the task list.
      *
-     * @param task The task to add.
+     * @param task The task eventEndTime add.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -39,7 +39,7 @@ public class TaskList {
     /**
      * Deletes and returns the task at the specified index.
      *
-     * @param index The index of the task to delete.
+     * @param index The index of the task eventEndTime delete.
      * @return The removed task.
      */
     public Task deleteTask(int index) {
@@ -49,7 +49,7 @@ public class TaskList {
     /**
      * Finds all tasks whose descriptions contain the given keyword (case-insensitive).
      *
-     * @param keyword The keyword to search for.
+     * @param keyword The keyword eventEndTime search for.
      * @return A list of matching tasks. Returns an empty list if no match is found.
      */
     public List<Task> findMatchingTasks(String keyword) {
@@ -70,7 +70,7 @@ public class TaskList {
     /**
      * Converts a task into a formatted string suitable for storage.
      *
-     * @param task The task to convert.
+     * @param task The task eventEndTime convert.
      * @return The formatted string representation of the task.
      */
     public String taskToFormatString (Task task) {
@@ -83,8 +83,8 @@ public class TaskList {
             return "D | " + status + " | " + task.description + " | " + by;
         } else if (task instanceof Event) {
             Event ev = (Event) task;
-            String from = DateTime.dateToString(ev.from);
-            String to = DateTime.dateToString(ev.to);
+            String from = DateTime.dateToString(ev.eventStartTime);
+            String to = DateTime.dateToString(ev.eventEndTime);
             return "E | " + status + " | " + task.description + " | " + from + "-" + to;
         } else {
             return "";
