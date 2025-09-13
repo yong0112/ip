@@ -21,6 +21,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
     @Override
     public String toString() {
         String by = DateTime.dateToString(this.by);

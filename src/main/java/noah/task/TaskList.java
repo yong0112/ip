@@ -1,8 +1,10 @@
 package noah.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import noah.exception.NoahException;
 import noah.util.DateTime;
 
 /**
@@ -57,6 +59,66 @@ public class TaskList {
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .toList();
         return matches;
+    }
+
+    /**
+     * Edit task at the given index with the corresponding field and value.
+     *
+     * @param index Index of the task to be edited.
+     * @param field Field of the task to be edited.
+     * @param value Value of the field of task to be edited.
+     * @return Edited task.
+     */
+    public Task editTask(int index, String field, String value) throws NoahException {
+        Task originalTask = this.tasks.get(index);
+        Task editedTask;
+
+        switch (field) {
+        case "desc":
+            if (originalTask instanceof Deadline) {
+                Deadline dl = (Deadline) originalTask;
+                editedTask = new Deadline(value, dl.getBy());
+            } else if (originalTask instanceof Event) {
+                Event ev = (Event) originalTask;
+                editedTask = new Event(value, ev.getEventStartTime(), ev.getEventEndTime());
+            } else {
+                editedTask = new Todo(value);
+            }
+            break;
+
+        case "by":
+            if (!(originalTask instanceof Deadline)) {
+                throw new NoahException("The 'by' field can only be updated for deadline tasks.");
+            }
+            Deadline dl = (Deadline) originalTask;
+            LocalDateTime newBy = DateTime.parseDate(value);
+            editedTask = new Deadline(dl.getDescription(), newBy);
+            break;
+
+        case "from":
+        case "to":
+            if (!(originalTask instanceof Event)) {
+                throw new NoahException("The '" + field + "' field can only be updated for event tasks.");
+            }
+            Event ev = (Event) originalTask;
+            LocalDateTime newTime = DateTime.parseDate(value);
+            if (field.equals("from")) {
+                editedTask = new Event(ev.getDescription(), newTime, ev.getEventEndTime());
+            } else {
+                editedTask = new Event(ev.getDescription(), ev.getEventStartTime(), newTime);
+            }
+            break;
+
+        default:
+            throw new NoahException("Invalid field to edit. Eg: all, desc, from, to");
+        }
+
+        if (originalTask.getStatusIcon() == "X") {
+            editedTask.markAsDone();
+        }
+
+        this.tasks.set(index, editedTask);
+        return editedTask;
     }
 
     public int size() {

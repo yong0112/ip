@@ -28,6 +28,14 @@ public class Event extends Task {
         this.eventEndTime = eventEndTime;
     }
 
+    public LocalDateTime getEventStartTime() {
+        return this.eventStartTime;
+    }
+
+    public LocalDateTime getEventEndTime() {
+        return this.eventEndTime;
+    }
+
     @Override
     public String toString() {
         String from = DateTime.dateToString(this.eventStartTime);
