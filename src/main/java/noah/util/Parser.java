@@ -1,11 +1,14 @@
 package noah.util;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import noah.command.ByeCommand;
 import noah.command.Command;
 import noah.command.DeadlineCommand;
 import noah.command.DeleteCommand;
+import noah.command.EditCommand;
 import noah.command.EventCommand;
 import noah.command.FindCommand;
 import noah.command.ListCommand;
@@ -18,6 +21,9 @@ import noah.exception.NoahException;
  * Parses user input strings into corresponding {@link Command} objects.
  */
 public class Parser {
+    private static final List<String> VALID_FIELDS = Arrays.asList(
+            "by", "desc", "from", "to"
+    );
     /**
      * Parses a full command string entered by the user and returns the corresponding {@link Command} object.
      *
@@ -45,7 +51,7 @@ public class Parser {
             return parseMarkCommand(argument);
 
         case "UNMARK":
-            return  parseUnmarkCommand(argument);
+            return parseUnmarkCommand(argument);
 
         case "TODO":
             return parseTodoCommand(argument);
@@ -61,6 +67,9 @@ public class Parser {
 
         case "FIND":
             return parseFindCommand(argument);
+
+        case "EDIT":
+            return parseEditCommand(argument);
 
         default:
             throw new NoahException("Sorry~ I don't know what that means.");
@@ -127,15 +136,15 @@ public class Parser {
         if (argument.trim().isEmpty()) {
             throw new NoahException("The description of a event cannot be empty.");
         }
-        if (!argument.contains("/eventStartTime") || !argument.contains("/eventEndTime")) {
-            throw new NoahException("The event format must include /eventStartTime and /eventEndTime");
+        if (!argument.contains("/from") || !argument.contains("/to")) {
+            throw new NoahException("The event format must include /from and /to");
         }
         String[] ev = argument.split(" /from | /to");
         if (ev.length < 2 || ev[0].trim().isEmpty()) {
             throw new NoahException("The description of a event cannot be empty.");
         }
         if (ev[1].trim().isEmpty() || ev[2].trim().isEmpty()) {
-            throw new NoahException("Please specify valid /eventStartTime and /eventEndTime dates.");
+            throw new NoahException("Please specify valid /from and /to dates.");
         }
         LocalDateTime from = DateTime.parseDate(ev[1].trim());
         LocalDateTime to = DateTime.parseDate(ev[2].trim());
@@ -149,6 +158,31 @@ public class Parser {
         return new FindCommand(argument);
     }
 
+    private static Command parseEditCommand(String argument) throws NoahException {
+        if (argument.isEmpty()) {
+            throw new NoahException("Invalid edit command format. Use: edit <index> /<field> <value>");
+        }
+        String[] editParts = argument.split(" ", 3);
+        if (editParts.length != 3) {
+            throw new NoahException("Invalid edit command format. Use: edit <index> /<field> <value>");
+        }
+        int editIndex = parseInt(editParts[0]);
+        String editField = editParts[1];
+        String editValue = editParts[2].trim();
+
+        if (!editField.startsWith("/")) {
+            throw new NoahException("Field must start with a '/'. Example: /desc");
+        }
+
+        editField = editField.substring(1);
+
+        if (!VALID_FIELDS.contains(editField)) {
+            throw new NoahException("Invalid field to edit. Eg: all, desc, by, from, to");
+        }
+
+        return new EditCommand(editIndex, editField, editValue);
+    }
+
     /**
      * Parses a string representing a task number into an integer index.
      *
@@ -160,7 +194,7 @@ public class Parser {
         try {
             return Integer.parseInt(numberStr) - 1;
         } catch (NumberFormatException e) {
-            throw new NoahException("OOPS! noah.task.Task number must be an integer.");
+            throw new NoahException("OOPS! Task number must be an integer.");
         }
     }
 }
