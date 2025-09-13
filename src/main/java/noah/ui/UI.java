@@ -1,11 +1,13 @@
 package noah.ui;
 
+import java.util.List;
+
 import noah.task.Task;
 import noah.task.TaskList;
 
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * Represents the UI for Noah chatbox.
+ */
 public class UI {
 
     private static final String DIVIDER = "____________________________________";
@@ -17,33 +19,51 @@ public class UI {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Greets the user.
+     */
     public static String welcome() {
         return formatLine("Hello! I'm Noah\nWhat can I do for you?");
     }
 
+    /**
+     * Returns string message with the corresponding task added.
+     */
     public String printAddTask(Task task, int count) {
 
-        return formatLine("Got it. I've added this task:" +
-                "\n  " + task +
-                "\nNow you have " + count + " tasks in the list.");
+        return formatLine("Got it. I've added this task:"
+                + "\n  " + task
+                + "\nNow you have " + count + " tasks in the list.");
     }
 
+    /**
+     * Returns a string message with the details of task removed.
+     */
     public String printRemoveTask(Task removed, int count) {
-        return formatLine("Noted. I've removed this task:" +
-                "\n  " + removed +
-                "\nNow you have " + count +" tasks in the list.");
+        return formatLine("Noted. I've removed this task:"
+                + "\n  " + removed
+                + "\nNow you have " + count + " tasks in the list.");
     }
 
+    /**
+     * Returns a string message with the details of task marked.
+     */
     public String printMarkTask(Task task) {
-        return formatLine("Nice! I've marked this task as done:" +
-                "\n  " + task);
+        return formatLine("Nice! I've marked this task as done:"
+                + "\n  " + task);
     }
 
+    /**
+     * Returns a string message with the details of task unmarked.
+     */
     public String printUnmarkTask(Task task) {
-        return formatLine("OK, I've marked this task as not done yet:" +
-                "\n  " + task);
+        return formatLine("OK, I've marked this task as not done yet:"
+                + "\n  " + task);
     }
 
+    /**
+     * Returns a string message with the details of all the tasks.
+     */
     public String printAllTasks(TaskList tasks) {
         String msg = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
@@ -52,6 +72,9 @@ public class UI {
         return formatLine(msg);
     }
 
+    /**
+     * Returns a string message with the details of task found.
+     */
     public String printMatchedTask(List<Task> matches) {
         if (matches.isEmpty()) {
             return formatLine("No matching tasks found.");
@@ -69,7 +92,7 @@ public class UI {
     }
 
     public String goodBye() {
-        return formatLine("Bye. Hope to see you again soon!");
+        return formatLine("Bye. Hope eventEndTime see you again soon!");
     }
 
 }

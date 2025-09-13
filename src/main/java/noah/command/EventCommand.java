@@ -1,18 +1,17 @@
 package noah.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import noah.exception.NoahException;
+import noah.task.Event;
+import noah.task.Task;
 import noah.task.TaskList;
 import noah.ui.UI;
 import noah.util.Storage;
-import noah.exception.NoahException;
-import noah.task.Task;
-import noah.task.Event;
-
-import java.io.IOException;
-
-import java.time.LocalDateTime;
 
 /**
- * Represents a command to add an {@link Event} task to the task list.
+ * Represents a command eventEndTime add an {@link Event} task eventEndTime the task list.
  */
 public class EventCommand extends Command {
     private final String description;
@@ -32,16 +31,6 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
-    /**
-     * Executes this command by creating a new {@link Event} task, adding it to the {@link TaskList},
-     * updating the {@link Storage}, and notifying the user via the {@link UI}.
-     *
-     * @param tasks The task list to which the new event will be added.
-     * @param ui The user interface used to display messages.
-     * @param storage The storage system used to persist the task.
-     * @throws NoahException If there is an error writing to storage.
-     * @return A formatted string confirming the addition
-     */
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws NoahException {
         Task newEv = new Event(this.description, this.from, this.to);

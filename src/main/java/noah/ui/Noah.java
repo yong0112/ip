@@ -2,15 +2,21 @@ package noah.ui;
 
 import noah.command.Command;
 import noah.exception.NoahException;
+import noah.task.TaskList;
 import noah.util.Parser;
 import noah.util.Storage;
-import noah.task.TaskList;
 
+/**
+ * Main class for running Noah chatbox.
+ */
 public class Noah {
     private final Storage storage;
     private TaskList tasks;
     private final UI ui;
 
+    /**
+     * Constructs the chatbox with ui, storage to load tasks.
+     */
     public Noah() {
         ui = new UI();
         this.storage = new Storage();
@@ -20,25 +26,6 @@ public class Noah {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
-    }
-
-//    public void run() {
-//        ui.welcome();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(this.tasks, this.ui, this.storage);
-//                isExit = c.isExit();
-//            } catch (NoahException e) {
-//                ui.printError(e.getMessage());
-//            }
-//        }
-//    }
-
-    public static void main(String[] args) {
-//        new Noah().run();
     }
 
     public String getResponse(String input) {

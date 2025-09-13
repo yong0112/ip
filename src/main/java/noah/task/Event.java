@@ -1,27 +1,37 @@
 package noah.task;
 
+import java.time.LocalDateTime;
+
 import noah.exception.NoahException;
 import noah.util.DateTime;
 
-import java.time.LocalDateTime;
-
+/**
+ * Represents an event with start time and end time
+ */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime eventStartTime;
+    protected LocalDateTime eventEndTime;
 
-    public Event(String description, LocalDateTime from, LocalDateTime to) throws NoahException {
+    /**
+     * Constructs an event task with the given start and end time.
+     * @param description Description of task.
+     * @param eventStartTime Start time of task.
+     * @param eventEndTime End time of task.
+     * @throws NoahException Throws exception if start time is after end time.
+     */
+    public Event(String description, LocalDateTime eventStartTime, LocalDateTime eventEndTime) throws NoahException {
         super(description);
-        if (from.isAfter(to)) {
+        if (eventStartTime.isAfter(eventEndTime)) {
             throw new NoahException("Event start time must be before end time");
         }
-        this.from = from;
-        this.to = to;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
     }
 
     @Override
     public String toString() {
-        String from = DateTime.dateToString(this.from);
-        String to = DateTime.dateToString(this.to);
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        String from = DateTime.dateToString(this.eventStartTime);
+        String to = DateTime.dateToString(this.eventEndTime);
+        return "[E]" + super.toString() + " (eventStartTime: " + from + " eventEndTime: " + to + ")";
     }
 }

@@ -1,15 +1,17 @@
 package noah.util;
 
-import noah.exception.InvalidDateFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import noah.exception.InvalidDateFormatException;
+
+/**
+ * Represents an utility class for date time formatting"
+ */
 public class DateTime {
     private static final List<DateTimeFormatter> FORMATS = Arrays.asList(
             DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"),
@@ -49,8 +51,15 @@ public class DateTime {
             DateTimeFormatter.ofPattern("yyyy/M/d"),
             DateTimeFormatter.ofPattern("MMM d yyyy"),
             DateTimeFormatter.ofPattern("MMM/d/yyyy")
-    ) ;
+    );
 
+    /**
+     * Parses string input to LocalDateTime instance.
+     *
+     * @param date String date input
+     * @return LocalDateTime instances that matches the format.
+     * @throws InvalidDateFormatException Throws exception if no matched format.
+     */
     public static LocalDateTime parseDate(String date) throws InvalidDateFormatException {
         for (DateTimeFormatter format: FORMATS) {
             try {
@@ -59,11 +68,19 @@ public class DateTime {
                 } else {
                     return LocalDate.parse(date, format).atStartOfDay();
                 }
-            } catch (DateTimeParseException ignored) {}
+            } catch (DateTimeParseException ignored) {
+                continue;
+            }
         }
         throw new InvalidDateFormatException("Invalid date format: " + date);
     }
 
+    /**
+     * Converts a LocalDateTime instance to string.
+     *
+     * @param date LocalDateTime instance.
+     * @return Formatted string date.
+     */
     public static String dateToString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return date.format(formatter);

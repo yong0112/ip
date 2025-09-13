@@ -1,9 +1,20 @@
 package noah.task;
 
+/**
+ * Represents a generic task
+ * <p>
+ *     Each task has a description and completion status
+ * </p>
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new task with the given description.
+     * The task is set eventEndTime be undone.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
