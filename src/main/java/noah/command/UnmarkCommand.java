@@ -29,6 +29,8 @@ public class UnmarkCommand extends Command {
             throw new NoahException("Oops! I can't find the task");
         }
 
+        assert index >= 0 && index < tasks.size() : "Invalid index to unmark";
+
         Task task = tasks.get(index);
         task.markAsDone();
 

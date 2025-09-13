@@ -29,6 +29,8 @@ public class DeleteCommand extends Command {
             throw new NoahException("Oops! I can't find the task");
         }
 
+        assert index >= 0 && index < tasks.size() : "Invalid index to delete";
+
         try {
             storage.deleteTask(index);
         } catch (IOException e) {
