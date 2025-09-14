@@ -75,38 +75,16 @@ public class TaskList {
 
         switch (field) {
         case "desc":
-            if (originalTask instanceof Deadline) {
-                Deadline dl = (Deadline) originalTask;
-                editedTask = new Deadline(value, dl.getBy());
-            } else if (originalTask instanceof Event) {
-                Event ev = (Event) originalTask;
-                editedTask = new Event(value, ev.getEventStartTime(), ev.getEventEndTime());
-            } else {
-                editedTask = new Todo(value);
-            }
+            editedTask = editDescription(originalTask, value);
             break;
 
         case "by":
-            if (!(originalTask instanceof Deadline)) {
-                throw new NoahException("The 'by' field can only be updated for deadline tasks.");
-            }
-            Deadline dl = (Deadline) originalTask;
-            LocalDateTime newBy = DateTime.parseDate(value);
-            editedTask = new Deadline(dl.getDescription(), newBy);
+            editedTask = editDeadline(originalTask, value);
             break;
 
         case "from":
         case "to":
-            if (!(originalTask instanceof Event)) {
-                throw new NoahException("The '" + field + "' field can only be updated for event tasks.");
-            }
-            Event ev = (Event) originalTask;
-            LocalDateTime newTime = DateTime.parseDate(value);
-            if (field.equals("from")) {
-                editedTask = new Event(ev.getDescription(), newTime, ev.getEventEndTime());
-            } else {
-                editedTask = new Event(ev.getDescription(), ev.getEventStartTime(), newTime);
-            }
+            editedTask = editEventTime(originalTask, field, value);
             break;
 
         default:
@@ -119,6 +97,40 @@ public class TaskList {
 
         this.tasks.set(index, editedTask);
         return editedTask;
+    }
+
+    private static Task editDescription(Task originalTask, String value) throws NoahException {
+        if (originalTask instanceof Deadline) {
+            Deadline dl = (Deadline) originalTask;
+            return new Deadline(value, dl.getBy());
+        } else if (originalTask instanceof Event) {
+            Event ev = (Event) originalTask;
+            return new Event(value, ev.getEventStartTime(), ev.getEventEndTime());
+        } else {
+            return new Todo(value);
+        }
+    }
+
+    private static Task editDeadline(Task originalTask, String value) throws NoahException {
+        if (!(originalTask instanceof Deadline)) {
+            throw new NoahException("The 'by' field can only be updated for deadline tasks.");
+        }
+        Deadline dl = (Deadline) originalTask;
+        LocalDateTime newBy = DateTime.parseDate(value);
+        return new Deadline(dl.getDescription(), newBy);
+    }
+
+    private static Task editEventTime(Task originalTask, String field, String value) throws NoahException {
+        if (!(originalTask instanceof Event)) {
+            throw new NoahException("The '" + field + "' field can only be updated for event tasks.");
+        }
+        Event ev = (Event) originalTask;
+        LocalDateTime newTime = DateTime.parseDate(value);
+        if (field.equals("from")) {
+            return new Event(ev.getDescription(), newTime, ev.getEventEndTime());
+        } else {
+            return new Event(ev.getDescription(), ev.getEventStartTime(), newTime);
+        }
     }
 
     public int size() {
