@@ -23,6 +23,11 @@
     -fx-font-size: 20px;
 }
 
+.dialogContainer {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+}
+
 .scroll-pane,
 .scroll-pane .viewport {
     -fx-background-color: transparent;
