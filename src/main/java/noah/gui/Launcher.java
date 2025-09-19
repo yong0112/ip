@@ -1,4 +1,4 @@
-package noah.ui;
+package noah.gui;
 
 import javafx.application.Application;
 

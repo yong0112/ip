@@ -1,4 +1,4 @@
-package noah.ui;
+package noah.gui;
 
 import java.io.IOException;
 import java.util.Collections;

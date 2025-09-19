@@ -1,4 +1,4 @@
-package noah.ui;
+package noah.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -10,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import noah.ui.Noah;
+import noah.ui.UI;
 
 /**
  * Controller for the main GUI.
