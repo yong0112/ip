@@ -2,6 +2,7 @@ package noah.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public class DateTime {
                 if (format.toString().contains("H")) {
                     return LocalDateTime.parse(date, format);
                 } else {
-                    return LocalDate.parse(date, format).atStartOfDay();
+                    return LocalDate.parse(date, format).atTime(LocalTime.of(23, 59));
                 }
             } catch (DateTimeParseException ignored) {
                 continue;

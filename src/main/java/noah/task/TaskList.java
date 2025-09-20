@@ -117,6 +117,9 @@ public class TaskList {
         }
         Deadline dl = (Deadline) originalTask;
         LocalDateTime newBy = DateTime.parseDate(value);
+        if (newBy.isBefore(LocalDateTime.now())) {
+            throw new NoahException("My dawg! The deadline has already passed!");
+        }
         return new Deadline(dl.getDescription(), newBy);
     }
 
@@ -129,6 +132,9 @@ public class TaskList {
         if (field.equals("from")) {
             return new Event(ev.getDescription(), newTime, ev.getEventEndTime());
         } else {
+            if (newTime.isBefore(LocalDateTime.now())) {
+                throw new NoahException("My dawg! The event end time has already passed!");
+            }
             return new Event(ev.getDescription(), ev.getEventStartTime(), newTime);
         }
     }

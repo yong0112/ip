@@ -40,6 +40,6 @@ public class Event extends Task {
     public String toString() {
         String from = DateTime.dateToString(this.eventStartTime);
         String to = DateTime.dateToString(this.eventEndTime);
-        return "[E]" + super.toString() + " (eventStartTime: " + from + " eventEndTime: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

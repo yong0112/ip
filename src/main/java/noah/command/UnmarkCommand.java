@@ -32,7 +32,7 @@ public class UnmarkCommand extends Command {
         assert index >= 0 && index < tasks.size() : "Invalid index to unmark";
 
         Task task = tasks.get(index);
-        task.markAsDone();
+        task.unmark();
 
         try {
             storage.updateTask(tasks.taskToFormatString(task), index);

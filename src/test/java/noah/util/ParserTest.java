@@ -20,13 +20,13 @@ public class ParserTest {
 
     @Test
     public void testParseDeadlineCommand() throws NoahException {
-        Command command = Parser.parse("deadline submit report /by 2025-09-02 1800");
+        Command command = Parser.parse("deadline submit report /by 2025-10-20 1800");
         assertInstanceOf(DeadlineCommand.class, command);
     }
 
     @Test
     public void testParseEventCommand() throws NoahException {
-        Command command = Parser.parse("event eat dinner /from 2025-09-02 1800 /to 2025-09-02 2000");
+        Command command = Parser.parse("event eat dinner /from 2025-10-20 1800 /to 2025-10-20 2000");
         assertInstanceOf(EventCommand.class, command);
     }
 

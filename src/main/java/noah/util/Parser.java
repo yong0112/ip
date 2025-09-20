@@ -129,6 +129,11 @@ public class Parser {
             throw new NoahException("Please specify a valid deadline");
         }
         LocalDateTime by = DateTime.parseDate(dl[1].trim());
+
+        if (by.isBefore(LocalDateTime.now())) {
+            throw new NoahException("My dawg! The deadline has already passed!");
+        }
+
         return new DeadlineCommand(dl[0].trim(), by);
     }
 
@@ -148,6 +153,11 @@ public class Parser {
         }
         LocalDateTime from = DateTime.parseDate(ev[1].trim());
         LocalDateTime to = DateTime.parseDate(ev[2].trim());
+
+        if (to.isBefore(LocalDateTime.now())) {
+            throw new NoahException("My dawg! The event end time has already passed!");
+        }
+
         return new EventCommand(ev[0].trim(), from, to);
     }
 
