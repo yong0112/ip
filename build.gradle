@@ -51,7 +51,6 @@ application {
 
 shadowJar {
     archiveBaseName = "noah.jar"
-    archiveClassifier = null
 }
 
 run{
