@@ -80,7 +80,7 @@ public class Parser {
         if (argument.isEmpty()) {
             return new ListCommand();
         }
-        throw new NoahException("Try the command list only");
+        throw new NoahException("Try the command 'list' only");
     }
 
     private static Command parseMarkCommand(String argument) throws NoahException {
@@ -153,7 +153,7 @@ public class Parser {
 
     private static Command parseFindCommand(String argument) throws NoahException {
         if (argument.isEmpty()) {
-            throw new NoahException("Please provide a keyword eventEndTime search for.");
+            throw new NoahException("Please provide a keyword to search for.");
         }
         return new FindCommand(argument);
     }
