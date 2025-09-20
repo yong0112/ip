@@ -23,7 +23,7 @@ public class UI {
      * Greets the user.
      */
     public static String welcome() {
-        return formatLine("Hello! I'm Noah\nWhat can I do for you?");
+        return formatLine("Yo! Your boi Noah here.\nWhat can I do for you?");
     }
 
     /**
@@ -40,7 +40,7 @@ public class UI {
      * Returns a string message with the details of task removed.
      */
     public String printRemoveTask(Task removed, int count) {
-        return formatLine("Noted. I've removed this task:"
+        return formatLine("Yes sir. I've removed this task:"
                 + "\n  " + removed
                 + "\nNow you have " + count + " tasks in the list.");
     }
@@ -100,7 +100,7 @@ public class UI {
     }
 
     public String goodBye() {
-        return formatLine("Bye. Hope to see you again soon!");
+        return formatLine("Bye. See you next time my dawg!");
     }
 
 }
