@@ -1,6 +1,17 @@
 # AI Usage Guide 
 //This document adapted from [@Jayyyyy25's AI.md](https://github.com/Jayyyyy25/ip/blob/master/AI.md)
 
+## Week 3
+- **Tool used**: GitHub Copilot
+- **Task**: Used Copilot to auto-complete code snippets.
+- **Outcome**:
+    - Copilot suggested code completions that were often relevant and saved me time
+      typing.
+    - I reviewed and modified the suggestions to fit my specific needs.
+- **Time saved**: ~30 minutes.
+- **Observations**: Sometimes the suggestions were not exactly what I needed, but they
+  provided a good starting point.
+
 ## Week 5
 - **Tool used**: ChatGPT
 - **Task**: Asked ChatGPT for suggestions on implementing the extension feature.
@@ -13,12 +24,15 @@
     - I still had to do the actual coding and optimization.
 
 ## Week 6
-- **Tool used**: GitHub Copilot
-- **Task**: Used Copilot to auto-complete code snippets.
+- **Tool used**: ChatGPT
+- **Task**: 
+   1. Ask for suggestions on writing JUNIT tests.
+   2. Ask for suggestions on improving GUI.
 - **Outcome**:
-    - Copilot suggested code completions that were often relevant and saved me time
-      typing.
-    - I reviewed and modified the suggestions to fit my specific needs.
-- **Time saved**: ~30 minutes.
-- **Observations**: Sometimes the suggestions were not exactly what I needed, but they
-  provided a good starting point.
+   1. ChatGPT provided suggestions on writing JUNIT tests.
+   2. ChatGPT provided suggestions on improving GUI (theme and design).
+- **Time saved**: ~1 hour.
+- **Observations**:
+  - The suggestions were helpful in giving me a starting point for writing tests.
+  - Some GUI suggestions were useful, but I had to adapt them to fit my specific needs.
+  - Some of the code snippets provided were not usable and doesn't meet my requirements.
