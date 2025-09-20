@@ -1,4 +1,4 @@
-package noah.ui;
+package noah.gui;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import noah.ui.Noah;
 
 /**
  * A GUI for Duke using FXML.
